@@ -2,6 +2,7 @@
 
 use App\Contracts\RideService;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class OAuthController extends Controller
 {
@@ -23,7 +24,12 @@ class OAuthController extends Controller
      */
     public function index(Request $request)
     {
-        $access_token = $this->ride->loginFlow($request);
+        $response = $this->ride->login($request);
+
+        if ($response instanceof RedirectResponse) {
+            return $response;
+        }
+
         return redirect()->route('report');
     }
 }

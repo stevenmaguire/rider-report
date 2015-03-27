@@ -1,5 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use App\Contracts\RideService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+
 class WelcomeController extends Controller {
 
     /*
@@ -18,10 +22,10 @@ class WelcomeController extends Controller {
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(RideService $ride)
     {
-        $this->middleware('auth', ['only' => ['render']]);
-        $this->middleware('guest');
+        $this->ride = $ride;
+        $this->middleware('auth', ['only' => ['report']]);
     }
 
     /**
@@ -39,8 +43,20 @@ class WelcomeController extends Controller {
      *
      * @return Response
      */
-    public function render()
+    public function report()
     {
-        return view('welcome');
+        $user = Auth::user();
+        $report = Cache::remember('report.'.$user->id, 5, function() use ($user) {
+            return $this->ride->getReport($user);
+        });
+
+        return view('report', ['report' => $report]);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect()->route('home');
     }
 }
