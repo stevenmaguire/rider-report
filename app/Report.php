@@ -33,22 +33,29 @@ class Report
 
     public function getAverageTime()
     {
-        return $this->humanReadableTime($this->average_time);
+        $now = Carbon::now();
+        $then = $now->copy()->addSeconds($this->average_time);
+
+        return $this->getDiff($then, $now);
     }
 
-    public function getFirstTrip()
+    public function getFirstTrip($format = null)
     {
-        return Carbon::createFromTimeStamp($this->first_trip);
+        $date = Carbon::createFromTimeStamp($this->first_trip);
+
+        return $this->formatDate($date, $format);
     }
 
-    public function getLastTrip()
+    public function getLastTrip($format = null)
     {
-        return Carbon::createFromTimeStamp($this->last_trip);
+        $date = Carbon::createFromTimeStamp($this->last_trip);
+
+        return $this->formatDate($date, $format);
     }
 
     public function getTimeSpan()
     {
-        return $this->getLastTrip()->diffForHumans($this->getFirstTrip(), true);
+        return $this->getDiff($this->getFirstTrip(), $this->getLastTrip());
     }
 
     public function getTripCount()
@@ -63,7 +70,10 @@ class Report
 
     public function getTotalTime()
     {
-        return $this->humanReadableTime($this->total_time);
+        $now = Carbon::now();
+        $then = $now->copy()->addSeconds($this->total_time);
+
+        return $this->getDiff($then, $now);
     }
 
     private function addDate($date)
@@ -94,14 +104,21 @@ class Report
         $this->average_time = $this->total_time / $this->total_count;
     }
 
-    private function humanReadableTime($time)
+    private function formatDate(Carbon $date, $format = null)
     {
-        $s = $time%60;
-        $m = floor(($time%3600)/60);
-        $h = floor(($time%86400)/3600);
-        $d = floor(($time%2592000)/86400);
-        $M = floor($time/2592000);
+        if ($format) {
+            return $date->format($format);
+        }
 
-        return "$M months, $d days, $h hours, $m minutes, $s seconds";
+        return $date;
+    }
+
+    private function getDiff(Carbon $start, Carbon $end = null)
+    {
+        if (is_null($end)) {
+            $end = Carbon::now();
+        }
+
+        return $end->diffForHumans($start, true);
     }
 }

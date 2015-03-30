@@ -116,6 +116,16 @@ class Uber implements RideService
     }
 
     /**
+     * Get vendor name  for this ride service
+     *
+     * @return string
+     */
+    public function getVendor()
+    {
+        return 'uber';
+    }
+
+    /**
      * Coordinate steps of the OAuth login flow
      *
      * @param  Request  $request

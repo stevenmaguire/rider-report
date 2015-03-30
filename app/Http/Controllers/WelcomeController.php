@@ -2,7 +2,6 @@
 
 use App\Contracts\RideService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 
 class WelcomeController extends Controller {
 
@@ -45,10 +44,7 @@ class WelcomeController extends Controller {
      */
     public function report()
     {
-        $user = Auth::user();
-        $report = Cache::remember('report.'.$user->id, 5, function() use ($user) {
-            return $this->ride->getReport($user);
-        });
+        $report = Auth::user()->getRiderReport($this->ride);
 
         return view('report', ['report' => $report]);
     }
