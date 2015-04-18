@@ -1,0 +1,25 @@
+
+#{classSelector("widget")} {
+    @include grid-column(12);
+    background: $white;
+    height: 100%;
+}
+
+#{classSelector("brand-bar")} {
+    @include grid-column(12);
+
+}
+
+#{classSelector("content")} {
+    @include clearfix;
+    @include grid-column(10, $center:true);
+    min-height: rem-calc(214);
+    overflow: hidden;
+    padding:0 !important;
+
+    @media screen and (min-width:rem-calc(1025)){
+        @include grid-column(12);
+        max-width: rem-calc(1000);
+        margin:auto 0;
+    }
+}

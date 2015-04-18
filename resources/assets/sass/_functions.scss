@@ -1,0 +1,25 @@
+$class-prefix: "rr-";
+$rr_darken_factor: 10;
+$rr_lighten_factor: 10;
+
+@function black($opacity){
+    @return rgba(0,0,0,$opacity);
+}
+@function white($opacity){
+    @return rgba(255,255,255,$opacity);
+}
+@function rrdarken($color){
+    @return darken($color, $li_darken_factor);
+}
+@function rrlighten($color){
+    @return lighten($color, $li_lighten_factor);
+}
+@function selector($term,$flag:"."){
+    @return #{$flag}#{$class-prefix}#{$term};
+}
+@function classSelector($term){
+    @return selector($term,$flag:".");
+}
+@function idSelector($term){
+    @return selector($term,$flag:"#");
+}

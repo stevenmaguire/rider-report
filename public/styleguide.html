@@ -1,42 +1,42 @@
 <html>
     <head>
-        <title>Laravel</title>
-        <link rel="stylesheet" type="text/css" href="/styles/app.css" />
+        <title>Rider Report</title>
+        <link rel="stylesheet" type="text/css" href="styles/app.css" />
     </head>
     <body>
         <section>
             <div class="row">
                 <div class="small-12 medium-4 columns">
-                    <div class="panel">{{ $report->getTripCount() }} total trips taken</div>
+                    <div class="panel">185 total trips taken</div>
                 </div>
                 <div class="small-12 medium-4 columns">
-                    <div class="panel">{{ $report->getTotalDistance() }} total miles traveled</div>
+                    <div class="panel">475.3 total miles traveled</div>
                 </div>
                 <div class="small-12 medium-4 columns">
-                    <div class="panel">{{ $report->getTotalTime() }} total time in a car</div>
+                    <div class="panel">1 day total time in a car</div>
                 </div>
             </div>
         </section>
         <section>
             <div class="row">
                 <div class="small-12 medium-6 columns">
-                    <div class="panel">average {{ $report->getAverageDistance() }} miles per trip</div>
+                    <div class="panel">average 2.6 miles per trip</div>
                 </div>
                 <div class="small-12 medium-6 columns">
-                    <div class="panel">average {{ $report->getAverageTime() }} per trip</div>
+                    <div class="panel">average 10 minutes per trip</div>
                 </div>
             </div>
         </section>
         <section>
             <div class="row">
                 <div class="small-12 medium-4 columns">
-                    <div class="panel">first trip on {{ $report->getFirstTrip('l jS \\of F Y h:i:s A') }}</div>
+                    <div class="panel">first trip on Saturday 15th of October 2011 06:06:17 AM</div>
                 </div>
                 <div class="small-12 medium-4 columns">
-                    <div class="panel">across {{ $report->getTimeSpan() }}</div>
+                    <div class="panel">across 3 years</div>
                 </div>
                 <div class="small-12 medium-4 columns">
-                    <div class="panel">last trip on {{ $report->getLastTrip('l jS \\of F Y h:i:s A') }}</div>
+                    <div class="panel">last trip on Monday 30th of March 2015 02:10:33 PM</div>
                 </div>
             </div>
         </section>
